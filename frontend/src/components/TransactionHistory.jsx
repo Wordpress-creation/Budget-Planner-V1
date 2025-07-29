@@ -64,7 +64,7 @@ const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
     });
 
     return filtered;
-  }, [searchTerm, filterType, filterCategory, sortBy]);
+  }, [transactions, searchTerm, filterType, filterCategory, sortBy]);
 
   // Get all categories for filter dropdown
   const allCategories = useMemo(() => {
