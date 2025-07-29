@@ -443,6 +443,7 @@ const Dashboard = () => {
         <TransactionForm 
           isOpen={showAddTransaction}
           onClose={() => setShowAddTransaction(false)}
+          onSave={handleAddTransaction}
         />
       )}
     </div>
