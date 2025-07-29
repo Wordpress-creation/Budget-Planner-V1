@@ -109,11 +109,8 @@ const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', sel
     return [...mockCategories.income, ...mockCategories.expense];
   }, []);
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
+  const formatCurrencyAmount = (amount, currency) => {
+    return formatCurrency(convertCurrency(amount, currency || 'USD', selectedCurrency), selectedCurrency);
   };
 
   const formatDate = (dateString) => {
