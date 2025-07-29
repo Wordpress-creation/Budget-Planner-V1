@@ -82,18 +82,79 @@ const Dashboard = () => {
     return { totalIncome, totalExpense, balance };
   }, [selectedPeriod, transactions]);
 
-  // Monthly chart data
+  // Monthly chart data based on selected period
   const monthlyChartData = useMemo(() => {
-    const monthlyData = getMonthlyData();
-    return Object.entries(monthlyData)
-      .map(([month, data]) => ({
-        month: new Date(month).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
-        income: data.income,
-        expense: data.expense,
-        balance: data.income - data.expense
-      }))
-      .sort((a, b) => new Date(a.month) - new Date(b.month));
-  }, []);
+    let filteredTransactions = transactions;
+    const now = new Date();
+    
+    if (selectedPeriod === 'weekly') {
+      // Show last 8 weeks
+      const weeksData = [];
+      for (let i = 7; i >= 0; i--) {
+        const weekStart = new Date(now);
+        weekStart.setDate(now.getDate() - now.getDay() + 1 - (i * 7));
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekStart.getDate() + 6);
+        
+        const weekTransactions = transactions.filter(t => 
+          t.date >= weekStart.toISOString().slice(0, 10) && 
+          t.date <= weekEnd.toISOString().slice(0, 10)
+        );
+        
+        const income = weekTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+        const expense = weekTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+        
+        weeksData.push({
+          month: `W${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+          income,
+          expense,
+          balance: income - expense
+        });
+      }
+      return weeksData;
+    } else if (selectedPeriod === 'yearly') {
+      // Show last 4 years
+      const yearsData = [];
+      for (let i = 3; i >= 0; i--) {
+        const year = now.getFullYear() - i;
+        const yearTransactions = transactions.filter(t => t.date.startsWith(year.toString()));
+        
+        const income = yearTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+        const expense = yearTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+        
+        yearsData.push({
+          month: year.toString(),
+          income,
+          expense,
+          balance: income - expense
+        });
+      }
+      return yearsData;
+    } else {
+      // Monthly view (default)
+      const monthlyData = {};
+      
+      transactions.forEach(transaction => {
+        const date = new Date(transaction.date);
+        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        
+        if (!monthlyData[monthKey]) {
+          monthlyData[monthKey] = { income: 0, expense: 0 };
+        }
+        
+        monthlyData[monthKey][transaction.type] += transaction.amount;
+      });
+      
+      return Object.entries(monthlyData)
+        .map(([month, data]) => ({
+          month: new Date(month).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
+          income: data.income,
+          expense: data.expense,
+          balance: data.income - data.expense
+        }))
+        .sort((a, b) => new Date(a.month) - new Date(b.month));
+    }
+  }, [transactions, selectedPeriod]);
 
   // Category pie chart data
   const expensePieData = useMemo(() => {
