@@ -186,3 +186,5 @@
       message: "Corrigé les 3 bugs identifiés: 1) Tendances dynamiques selon période, 2) Fonctionnalité d'édition de transactions, 3) Filtrage temporel dans l'historique. Prêt pour tests frontend."
     - agent: "testing"
       message: "Backend testing completed successfully. All API endpoints working perfectly: Root endpoint (GET /api/), Create status check (POST /api/status), and Get status checks (GET /api/status). MongoDB integration working, proper error handling implemented. Created comprehensive backend_test.py for future use. Backend is fully functional and ready for production."
+    - agent: "testing"
+      message: "Backend re-verification completed after currency modifications. All 3 API endpoints still working perfectly: 1) GET /api/ returns correct Hello World message, 2) POST /api/status creates status checks with proper validation and UUID generation, 3) GET /api/status returns complete list with proper data persistence. Error handling working (422 for validation errors, 404 for missing endpoints). All services running properly via supervisor. Backend remains fully functional."
