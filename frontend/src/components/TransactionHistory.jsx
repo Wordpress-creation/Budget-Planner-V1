@@ -190,7 +190,7 @@ const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', sel
         <div className="flex items-center space-x-4">
           <div className="text-right">
             <div className={`text-lg font-bold ${isIncome ? 'text-green-600' : 'text-red-600'}`}>
-              {isIncome ? '+' : '-'}{formatCurrency(transaction.amount)}
+              {isIncome ? '+' : '-'}{formatCurrencyAmount(transaction.amount, transaction.currency)}
             </div>
           </div>
           
