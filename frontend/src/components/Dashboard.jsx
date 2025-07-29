@@ -272,12 +272,22 @@ const Dashboard = () => {
   };
 
   const handleAddTransaction = (newTransaction) => {
-    setTransactions(prev => [newTransaction, ...prev]);
+    // Add currency to the transaction if not present
+    const transactionWithCurrency = {
+      ...newTransaction,
+      currency: newTransaction.currency || selectedCurrency
+    };
+    setTransactions(prev => [transactionWithCurrency, ...prev]);
   };
 
   const handleUpdateTransaction = (updatedTransaction) => {
+    // Ensure currency is set
+    const transactionWithCurrency = {
+      ...updatedTransaction,
+      currency: updatedTransaction.currency || selectedCurrency
+    };
     setTransactions(prev => 
-      prev.map(t => t.id === updatedTransaction.id ? updatedTransaction : t)
+      prev.map(t => t.id === updatedTransaction.id ? transactionWithCurrency : t)
     );
   };
 
