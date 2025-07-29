@@ -18,7 +18,7 @@ import {
 import { format } from 'date-fns';
 import TransactionForm from './TransactionForm';
 
-const TransactionHistory = () => {
+const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterCategory, setFilterCategory] = useState('all');
