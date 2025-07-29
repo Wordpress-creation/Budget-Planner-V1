@@ -251,7 +251,7 @@ const Dashboard = () => {
       if (!categoryTotals[transaction.category]) {
         categoryTotals[transaction.category] = 0;
       }
-      categoryTotals[transaction.category] += transaction.amount;
+      categoryTotals[transaction.category] += convertCurrency(transaction.amount, transaction.currency || 'USD', selectedCurrency);
     });
     
     return Object.entries(categoryTotals)
