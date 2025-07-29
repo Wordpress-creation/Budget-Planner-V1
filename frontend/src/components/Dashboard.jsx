@@ -434,7 +434,7 @@ const Dashboard = () => {
                           borderRadius: '8px',
                           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                         }}
-                        formatter={(value) => [formatCurrency(value), '']}
+                        formatter={(value) => [formatCurrencyAmount(value), '']}
                       />
                       <Bar dataKey="income" fill="#10b981" radius={[4, 4, 0, 0]} />
                       <Bar dataKey="expense" fill="#ef4444" radius={[4, 4, 0, 0]} />
@@ -471,7 +471,7 @@ const Dashboard = () => {
                             <Cell key={`cell-${index}`} fill={entry.color} />
                           ))}
                         </Pie>
-                        <Tooltip formatter={(value) => [formatCurrency(value), 'Amount']} />
+                        <Tooltip formatter={(value) => [formatCurrencyAmount(value), 'Amount']} />
                       </RechartsPieChart>
                     </ResponsiveContainer>
                   </div>
