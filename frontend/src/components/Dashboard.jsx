@@ -161,8 +161,8 @@ const Dashboard = () => {
           t.date <= weekEnd.toISOString().slice(0, 10)
         );
         
-        const income = weekTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
-        const expense = weekTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+        const income = weekTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
+        const expense = weekTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
         
         weeksData.push({
           month: `W${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
