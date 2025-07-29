@@ -16,7 +16,7 @@ import {
   MoreHorizontal
 } from 'lucide-react';
 import { format } from 'date-fns';
-import TransactionForm from './TransactionForm';
+import { useToast } from '../hooks/use-toast';
 
 const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
   const [searchTerm, setSearchTerm] = useState('');
