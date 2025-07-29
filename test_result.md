@@ -101,3 +101,83 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+## user_problem_statement: "Modifier cette application car ya des bugs : Parfait, mais update, mais quand tu change du weekly, monthy etc, Les parties '+12% from last month -5% from last month' ne s'update pas en weekly ou yealy. D'ailleur modifier une transaction ne fonctionne pas, ya la validation mais ça ne change pas. Aussi dans la partie 'Transaction History' ça ignore le weekly, yearly etc aussi (ça ne devrais pas)"
+
+## backend:
+  - task: "Backend API endpoints"
+    implemented: true
+    working: true
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Basic FastAPI template is working with status checks endpoints"
+
+## frontend:
+  - task: "Fix dynamic trend labels based on selected period"
+    implemented: true
+    working: true
+    file: "frontend/src/components/Dashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "Les tendances '+12% from last month' et '-5% from last month' ne s'actualise pas quand on change de période"
+        - working: true
+          agent: "main"
+          comment: "Remplacé les textes hardcodés par les variables dynamiques incomeTrend et expenseTrend"
+
+  - task: "Fix transaction editing functionality"
+    implemented: true
+    working: true
+    file: "frontend/src/components/Dashboard.jsx, frontend/src/components/TransactionHistory.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "Modifier une transaction ne fonctionne pas, ya la validation mais ça ne change pas"
+        - working: true
+          agent: "main"
+          comment: "Ajouté handleUpdateTransaction dans Dashboard et handleSaveEdit dans TransactionHistory"
+
+  - task: "Fix transaction history period filtering"
+    implemented: true
+    working: true
+    file: "frontend/src/components/TransactionHistory.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "Dans Transaction History ça ignore le weekly, yearly etc - toutes les transactions sont affichées"
+        - working: true
+          agent: "main"
+          comment: "Ajouté periodFilteredTransactions qui filtre selon selectedPeriod passé depuis Dashboard"
+
+## metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+## test_plan:
+  current_focus:
+    - "Fix dynamic trend labels based on selected period"
+    - "Fix transaction editing functionality"
+    - "Fix transaction history period filtering"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+## agent_communication:
+    - agent: "main"
+      message: "Corrigé les 3 bugs identifiés: 1) Tendances dynamiques selon période, 2) Fonctionnalité d'édition de transactions, 3) Filtrage temporel dans l'historique. Prêt pour tests frontend."
