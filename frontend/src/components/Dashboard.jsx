@@ -179,8 +179,8 @@ const Dashboard = () => {
         const year = now.getFullYear() - i;
         const yearTransactions = transactions.filter(t => t.date.startsWith(year.toString()));
         
-        const income = yearTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
-        const expense = yearTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+        const income = yearTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
+        const expense = yearTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
         
         yearsData.push({
           month: year.toString(),
