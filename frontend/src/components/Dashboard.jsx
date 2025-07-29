@@ -301,7 +301,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
-            <h3 className="text-2xl font-bold text-gray-900">{formatCurrency(value)}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">{formatCurrencyAmount(value)}</h3>
             {trend && (
               <div className={`flex items-center mt-2 text-sm ${trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-gray-600'}`}>
                 {trend === 'up' ? <TrendingUp className="w-4 h-4 mr-1" /> : 
