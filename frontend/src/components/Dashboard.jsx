@@ -332,13 +332,19 @@ const Dashboard = () => {
                 Budget Planner by Wordpress-creation.fr
               </h1>
             </div>
-            <Button 
-              onClick={() => setShowAddTransaction(true)}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add Transaction
-            </Button>
+            <div className="flex items-center space-x-4">
+              <CurrencySelector 
+                selectedCurrency={selectedCurrency} 
+                onCurrencyChange={setSelectedCurrency}
+              />
+              <Button 
+                onClick={() => setShowAddTransaction(true)}
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Add Transaction
+              </Button>
+            </div>
           </div>
         </div>
       </div>
