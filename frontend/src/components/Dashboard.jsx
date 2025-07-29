@@ -430,7 +430,10 @@ const Dashboard = () => {
           </TabsContent>
 
           <TabsContent value="transactions">
-            <TransactionHistory />
+            <TransactionHistory 
+              transactions={transactions}
+              onDeleteTransaction={handleDeleteTransaction}
+            />
           </TabsContent>
         </Tabs>
       </div>
