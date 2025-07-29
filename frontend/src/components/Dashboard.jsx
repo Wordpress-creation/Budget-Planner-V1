@@ -140,7 +140,7 @@ const Dashboard = () => {
       startDate,
       endDate
     };
-  }, [selectedPeriod, transactions]);
+  }, [selectedPeriod, selectedCurrency, transactions]);
 
   // Monthly chart data based on selected period
   const monthlyChartData = useMemo(() => {
