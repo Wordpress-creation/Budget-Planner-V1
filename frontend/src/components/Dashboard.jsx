@@ -318,7 +318,7 @@ const Dashboard = () => {
                 <Wallet className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                Budget Planner
+                Budget Planner by Wordpress-creation.fr
               </h1>
             </div>
             <Button 
