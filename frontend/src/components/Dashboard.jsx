@@ -35,6 +35,7 @@ import CurrencySelector from './CurrencySelector';
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedPeriod, setSelectedPeriod] = useState('monthly');
+  const [selectedCurrency, setSelectedCurrency] = useState(DEFAULT_CURRENCY);
   const [showAddTransaction, setShowAddTransaction] = useState(false);
   const [transactions, setTransactions] = useState(mockTransactions);
 
