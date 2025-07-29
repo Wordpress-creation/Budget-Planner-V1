@@ -19,7 +19,7 @@ import { format } from 'date-fns';
 import { useToast } from '../hooks/use-toast';
 import TransactionForm from './TransactionForm';
 
-const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
+const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', onDeleteTransaction, onUpdateTransaction }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterCategory, setFilterCategory] = useState('all');
