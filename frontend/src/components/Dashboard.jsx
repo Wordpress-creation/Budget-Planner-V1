@@ -496,7 +496,7 @@ const Dashboard = () => {
                             <span className="font-medium text-gray-700">{category.name}</span>
                           </div>
                           <div className="text-right">
-                            <div className="font-semibold text-gray-900">{formatCurrency(category.value)}</div>
+                            <div className="font-semibold text-gray-900">{formatCurrencyAmount(category.value)}</div>
                             <div className="text-sm text-gray-500">{percentage.toFixed(1)}%</div>
                           </div>
                         </div>
