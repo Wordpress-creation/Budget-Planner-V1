@@ -127,23 +127,35 @@ const TransactionForm = ({ isOpen, onClose, onSave, editingTransaction = null, s
             </TabsList>
           </Tabs>
 
-          {/* Amount Input */}
-          <div className="space-y-2">
-            <Label htmlFor="amount" className="text-sm font-medium text-gray-700">
-              Amount *
-            </Label>
-            <div className="relative">
-              <DollarSign className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <Input
-                id="amount"
-                type="number"
-                placeholder="0.00"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="pl-9 text-lg font-semibold"
-                step="0.01"
-                min="0"
-                required
+          {/* Amount and Currency Input */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="amount" className="text-sm font-medium text-gray-700">
+                Amount *
+              </Label>
+              <div className="relative">
+                <Input
+                  id="amount"
+                  type="number"
+                  placeholder="0.00"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  className="text-lg font-semibold pr-20"
+                  step="0.01"
+                  min="0"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">
+                Currency *
+              </Label>
+              <CurrencySelector 
+                selectedCurrency={currency}
+                onCurrencyChange={setCurrency}
+                className="w-full"
               />
             </div>
           </div>
