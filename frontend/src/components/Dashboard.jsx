@@ -214,6 +214,14 @@ const Dashboard = () => {
     }).format(amount);
   };
 
+  const handleAddTransaction = (newTransaction) => {
+    setTransactions(prev => [newTransaction, ...prev]);
+  };
+
+  const handleDeleteTransaction = (transactionId) => {
+    setTransactions(prev => prev.filter(t => t.id !== transactionId));
+  };
+
   const StatCard = ({ title, value, icon: Icon, trend, trendValue, color = 'bg-gradient-to-r from-blue-50 to-indigo-50' }) => (
     <Card className={`${color} border-0 shadow-sm hover:shadow-md transition-all duration-300`}>
       <CardContent className="p-6">
