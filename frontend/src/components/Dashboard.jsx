@@ -27,8 +27,10 @@ import {
   Legend
 } from 'recharts';
 import { mockTransactions, mockCategories, getMonthlyData, getCategoryTotals, getCategoryById } from '../mockData';
+import { convertCurrency, formatCurrency, DEFAULT_CURRENCY } from '../services/currencyService';
 import TransactionForm from './TransactionForm';
 import TransactionHistory from './TransactionHistory';
+import CurrencySelector from './CurrencySelector';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
