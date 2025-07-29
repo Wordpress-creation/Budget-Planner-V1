@@ -28,9 +28,43 @@ const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', onD
   
   const { toast } = useToast();
 
+  // Filter transactions based on selected period
+  const periodFilteredTransactions = useMemo(() => {
+    const now = new Date();
+    let startDate, endDate;
+    
+    switch (selectedPeriod) {
+      case 'weekly':
+        // Current week (Monday to Sunday)
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay() + 1);
+        startDate = startOfWeek.toISOString().slice(0, 10);
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        endDate = endOfWeek.toISOString().slice(0, 10);
+        break;
+      case 'yearly':
+        // Current year
+        startDate = `${now.getFullYear()}-01-01`;
+        endDate = `${now.getFullYear()}-12-31`;
+        break;
+      case 'monthly':
+      default:
+        // Current month
+        startDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+        endDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${lastDay}`;
+        break;
+    }
+
+    return transactions.filter(t => 
+      t.date >= startDate && t.date <= endDate
+    );
+  }, [transactions, selectedPeriod]);
+
   // Filter and search transactions
   const filteredTransactions = useMemo(() => {
-    let filtered = [...transactions];
+    let filtered = [...periodFilteredTransactions];
 
     // Apply search filter
     if (searchTerm) {
