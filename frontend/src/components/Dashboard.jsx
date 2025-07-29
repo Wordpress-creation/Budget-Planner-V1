@@ -214,7 +214,7 @@ const Dashboard = () => {
         }))
         .sort((a, b) => new Date(a.month) - new Date(b.month));
     }
-  }, [transactions, selectedPeriod]);
+  }, [transactions, selectedPeriod, selectedCurrency]);
 
   // Category pie chart data based on selected period
   const expensePieData = useMemo(() => {
