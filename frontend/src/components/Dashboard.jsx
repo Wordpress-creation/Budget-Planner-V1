@@ -36,10 +36,10 @@ const Dashboard = () => {
   const [showAddTransaction, setShowAddTransaction] = useState(false);
   const [transactions, setTransactions] = useState(mockTransactions);
 
-  // Calculate summary data based on selected period
+  // Calculate summary data based on selected period with trends
   const summaryData = useMemo(() => {
     const now = new Date();
-    let startDate, endDate;
+    let startDate, endDate, prevStartDate, prevEndDate, periodLabel;
     
     switch (selectedPeriod) {
       case 'weekly':
@@ -50,11 +50,25 @@ const Dashboard = () => {
         const endOfWeek = new Date(startOfWeek);
         endOfWeek.setDate(startOfWeek.getDate() + 6);
         endDate = endOfWeek.toISOString().slice(0, 10);
+        
+        // Previous week
+        const prevWeekStart = new Date(startOfWeek);
+        prevWeekStart.setDate(startOfWeek.getDate() - 7);
+        prevStartDate = prevWeekStart.toISOString().slice(0, 10);
+        const prevWeekEnd = new Date(prevWeekStart);
+        prevWeekEnd.setDate(prevWeekStart.getDate() + 6);
+        prevEndDate = prevWeekEnd.toISOString().slice(0, 10);
+        periodLabel = 'last week';
         break;
       case 'yearly':
         // Current year
         startDate = `${now.getFullYear()}-01-01`;
         endDate = `${now.getFullYear()}-12-31`;
+        
+        // Previous year
+        prevStartDate = `${now.getFullYear() - 1}-01-01`;
+        prevEndDate = `${now.getFullYear() - 1}-12-31`;
+        periodLabel = 'last year';
         break;
       case 'monthly':
       default:
@@ -62,11 +76,25 @@ const Dashboard = () => {
         startDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
         const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
         endDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${lastDay}`;
+        
+        // Previous month
+        const prevMonth = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
+        const prevYear = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+        prevStartDate = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-01`;
+        const prevLastDay = new Date(prevYear, prevMonth + 1, 0).getDate();
+        prevEndDate = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-${prevLastDay}`;
+        periodLabel = 'last month';
         break;
     }
 
+    // Current period transactions
     const periodTransactions = transactions.filter(t => 
       t.date >= startDate && t.date <= endDate
+    );
+    
+    // Previous period transactions for comparison
+    const prevPeriodTransactions = transactions.filter(t => 
+      t.date >= prevStartDate && t.date <= prevEndDate
     );
 
     const totalIncome = periodTransactions
@@ -76,10 +104,38 @@ const Dashboard = () => {
     const totalExpense = periodTransactions
       .filter(t => t.type === 'expense')
       .reduce((sum, t) => sum + t.amount, 0);
+    
+    const prevTotalIncome = prevPeriodTransactions
+      .filter(t => t.type === 'income')
+      .reduce((sum, t) => sum + t.amount, 0);
+
+    const prevTotalExpense = prevPeriodTransactions
+      .filter(t => t.type === 'expense')
+      .reduce((sum, t) => sum + t.amount, 0);
 
     const balance = totalIncome - totalExpense;
 
-    return { totalIncome, totalExpense, balance };
+    // Calculate trends
+    const incomeChange = prevTotalIncome > 0 ? ((totalIncome - prevTotalIncome) / prevTotalIncome) * 100 : 0;
+    const expenseChange = prevTotalExpense > 0 ? ((totalExpense - prevTotalExpense) / prevTotalExpense) * 100 : 0;
+    
+    const incomeTrend = incomeChange > 0 ? `+${incomeChange.toFixed(0)}% from ${periodLabel}` : 
+                       incomeChange < 0 ? `${incomeChange.toFixed(0)}% from ${periodLabel}` : 
+                       `No change from ${periodLabel}`;
+    
+    const expenseTrend = expenseChange > 0 ? `+${expenseChange.toFixed(0)}% from ${periodLabel}` : 
+                        expenseChange < 0 ? `${expenseChange.toFixed(0)}% from ${periodLabel}` : 
+                        `No change from ${periodLabel}`;
+
+    return { 
+      totalIncome, 
+      totalExpense, 
+      balance, 
+      incomeTrend, 
+      expenseTrend,
+      startDate,
+      endDate
+    };
   }, [selectedPeriod, transactions]);
 
   // Monthly chart data based on selected period
