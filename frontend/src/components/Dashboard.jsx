@@ -34,6 +34,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedPeriod, setSelectedPeriod] = useState('monthly');
   const [showAddTransaction, setShowAddTransaction] = useState(false);
+  const [transactions, setTransactions] = useState(mockTransactions);
 
   // Calculate summary data
   const summaryData = useMemo(() => {
