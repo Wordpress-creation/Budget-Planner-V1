@@ -512,6 +512,7 @@ const Dashboard = () => {
             <TransactionHistory 
               transactions={transactions}
               selectedPeriod={selectedPeriod}
+              selectedCurrency={selectedCurrency}
               onDeleteTransaction={handleDeleteTransaction}
               onUpdateTransaction={handleUpdateTransaction}
             />
