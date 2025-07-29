@@ -267,11 +267,8 @@ const Dashboard = () => {
       .slice(0, 8); // Top 8 categories
   }, [transactions, selectedPeriod, selectedCurrency]);
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
+  const formatCurrencyAmount = (amount) => {
+    return formatCurrency(amount, selectedCurrency);
   };
 
   const handleAddTransaction = (newTransaction) => {
