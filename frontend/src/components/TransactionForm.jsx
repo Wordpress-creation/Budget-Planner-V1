@@ -79,6 +79,7 @@ const TransactionForm = ({ isOpen, onClose, onSave, editingTransaction = null, s
 
     // Reset form
     setAmount('');
+    setCurrency(selectedCurrency);
     setCategory('');
     setDescription('');
     setDate(new Date());
