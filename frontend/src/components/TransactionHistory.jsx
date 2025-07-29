@@ -4,7 +4,7 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { mockTransactions, mockCategories, getCategoryById } from '../mockData';
+import { mockCategories, getCategoryById } from '../mockData';
 import { 
   Search, 
   Filter, 
