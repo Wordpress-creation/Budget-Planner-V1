@@ -10,6 +10,8 @@ import { Calendar } from './ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Badge } from './ui/badge';
 import { mockCategories } from '../mockData';
+import { DEFAULT_CURRENCY } from '../services/currencyService';
+import CurrencySelector from './CurrencySelector';
 import { 
   Plus, 
   Minus, 
