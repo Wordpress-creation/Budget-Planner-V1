@@ -87,8 +87,9 @@ const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
   };
 
   const handleDelete = (transactionId) => {
-    // In real app, this would delete from backend
-    console.log('Deleting transaction (MOCK):', transactionId);
+    if (onDeleteTransaction) {
+      onDeleteTransaction(transactionId);
+    }
   };
 
   const TransactionItem = ({ transaction }) => {
