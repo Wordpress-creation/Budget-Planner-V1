@@ -25,6 +25,8 @@ const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
   const [filterCategory, setFilterCategory] = useState('all');
   const [sortBy, setSortBy] = useState('date-desc');
   const [editingTransaction, setEditingTransaction] = useState(null);
+  
+  const { toast } = useToast();
 
   // Filter and search transactions
   const filteredTransactions = useMemo(() => {
