@@ -64,7 +64,9 @@ const TransactionForm = ({ isOpen, onClose, onSave, editingTransaction = null })
       date: format(date, 'yyyy-MM-dd')
     };
 
-    console.log('Saving transaction (MOCK):', transactionData);
+    if (onSave) {
+      onSave(transactionData);
+    }
     
     toast({
       title: editingTransaction ? "Transaction Updated" : "Transaction Added",
