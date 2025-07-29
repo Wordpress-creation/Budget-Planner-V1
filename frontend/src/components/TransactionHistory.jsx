@@ -123,6 +123,17 @@ const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', onD
     setEditingTransaction(transaction);
   };
 
+  const handleSaveEdit = (updatedTransaction) => {
+    if (onUpdateTransaction) {
+      onUpdateTransaction(updatedTransaction);
+      toast({
+        title: "Transaction Updated",
+        description: "The transaction has been successfully updated.",
+      });
+    }
+    setEditingTransaction(null);
+  };
+
   const handleDelete = (transactionId) => {
     if (onDeleteTransaction) {
       onDeleteTransaction(transactionId);
