@@ -265,7 +265,7 @@ const Dashboard = () => {
       })
       .sort((a, b) => b.value - a.value)
       .slice(0, 8); // Top 8 categories
-  }, [transactions, selectedPeriod]);
+  }, [transactions, selectedPeriod, selectedCurrency]);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
