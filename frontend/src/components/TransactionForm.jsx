@@ -23,9 +23,10 @@ import {
 import { format } from 'date-fns';
 import { useToast } from '../hooks/use-toast';
 
-const TransactionForm = ({ isOpen, onClose, onSave, editingTransaction = null }) => {
+const TransactionForm = ({ isOpen, onClose, onSave, editingTransaction = null, selectedCurrency = DEFAULT_CURRENCY }) => {
   const [transactionType, setTransactionType] = useState(editingTransaction?.type || 'expense');
   const [amount, setAmount] = useState(editingTransaction?.amount?.toString() || '');
+  const [currency, setCurrency] = useState(editingTransaction?.currency || selectedCurrency);
   const [category, setCategory] = useState(editingTransaction?.category || '');
   const [description, setDescription] = useState(editingTransaction?.description || '');
   const [date, setDate] = useState(editingTransaction ? new Date(editingTransaction.date) : new Date());
