@@ -202,7 +202,7 @@ const Dashboard = () => {
           monthlyData[monthKey] = { income: 0, expense: 0 };
         }
         
-        monthlyData[monthKey][transaction.type] += transaction.amount;
+        monthlyData[monthKey][transaction.type] += convertCurrency(transaction.amount, transaction.currency || 'USD', selectedCurrency);
       });
       
       return Object.entries(monthlyData)
