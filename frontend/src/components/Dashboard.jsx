@@ -22,6 +22,7 @@ import {
   Tooltip, 
   ResponsiveContainer,
   PieChart as RechartsPieChart,
+  Pie,
   Cell,
   Legend
 } from 'recharts';
