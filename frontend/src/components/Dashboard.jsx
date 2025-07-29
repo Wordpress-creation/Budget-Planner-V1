@@ -372,9 +372,17 @@ const Dashboard = () => {
             title="Net Balance"
             value={summaryData.balance}
             icon={DollarSign}
-            trend={summaryData.balance > 0 ? 'up' : 'down'}
-            trendValue={summaryData.balance > 0 ? 'Looking good!' : 'Watch spending'}
-            color={summaryData.balance > 0 ? 'bg-gradient-to-r from-blue-50 to-cyan-50' : 'bg-gradient-to-r from-orange-50 to-red-50'}
+            trend={summaryData.balance > 0 ? 'up' : summaryData.balance < 0 ? 'down' : null}
+            trendValue={
+              summaryData.balance > 0 ? 'Looking good!' : 
+              summaryData.balance === 0 ? 'Neutral ... meh' : 
+              'Watch spending'
+            }
+            color={
+              summaryData.balance > 0 ? 'bg-gradient-to-r from-blue-50 to-cyan-50' : 
+              summaryData.balance === 0 ? 'bg-gradient-to-r from-gray-50 to-slate-50' :
+              'bg-gradient-to-r from-orange-50 to-red-50'
+            }
           />
         </div>
 
