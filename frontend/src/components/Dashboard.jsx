@@ -100,21 +100,22 @@ const Dashboard = () => {
       t.date >= prevStartDate && t.date <= prevEndDate
     );
 
+    // Convert amounts to selected currency
     const totalIncome = periodTransactions
       .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
 
     const totalExpense = periodTransactions
       .filter(t => t.type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
     
     const prevTotalIncome = prevPeriodTransactions
       .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
 
     const prevTotalExpense = prevPeriodTransactions
       .filter(t => t.type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + convertCurrency(t.amount, t.currency || 'USD', selectedCurrency), 0);
 
     const balance = totalIncome - totalExpense;
 
