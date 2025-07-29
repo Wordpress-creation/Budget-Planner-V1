@@ -494,7 +494,9 @@ const Dashboard = () => {
           <TabsContent value="transactions">
             <TransactionHistory 
               transactions={transactions}
+              selectedPeriod={selectedPeriod}
               onDeleteTransaction={handleDeleteTransaction}
+              onUpdateTransaction={handleUpdateTransaction}
             />
           </TabsContent>
         </Tabs>
