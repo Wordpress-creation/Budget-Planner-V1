@@ -317,6 +317,7 @@ const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', onD
         <TransactionForm
           isOpen={!!editingTransaction}
           onClose={() => setEditingTransaction(null)}
+          onSave={handleSaveEdit}
           editingTransaction={editingTransaction}
         />
       )}
