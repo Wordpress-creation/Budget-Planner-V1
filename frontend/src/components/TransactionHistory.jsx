@@ -101,7 +101,7 @@ const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', onD
     });
 
     return filtered;
-  }, [transactions, searchTerm, filterType, filterCategory, sortBy]);
+  }, [periodFilteredTransactions, searchTerm, filterType, filterCategory, sortBy]);
 
   // Get all categories for filter dropdown
   const allCategories = useMemo(() => {
