@@ -92,6 +92,10 @@ const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
   const handleDelete = (transactionId) => {
     if (onDeleteTransaction) {
       onDeleteTransaction(transactionId);
+      toast({
+        title: "Transaction Deleted",
+        description: "The transaction has been successfully removed.",
+      });
     }
   };
 
