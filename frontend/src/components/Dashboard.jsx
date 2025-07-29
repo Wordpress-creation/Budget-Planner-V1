@@ -274,6 +274,12 @@ const Dashboard = () => {
     setTransactions(prev => [newTransaction, ...prev]);
   };
 
+  const handleUpdateTransaction = (updatedTransaction) => {
+    setTransactions(prev => 
+      prev.map(t => t.id === updatedTransaction.id ? updatedTransaction : t)
+    );
+  };
+
   const handleDeleteTransaction = (transactionId) => {
     setTransactions(prev => prev.filter(t => t.id !== transactionId));
   };
