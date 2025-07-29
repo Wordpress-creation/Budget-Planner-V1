@@ -27,7 +27,7 @@ const TransactionHistory = ({ transactions = [], onDeleteTransaction }) => {
 
   // Filter and search transactions
   const filteredTransactions = useMemo(() => {
-    let filtered = [...mockTransactions];
+    let filtered = [...transactions];
 
     // Apply search filter
     if (searchTerm) {
