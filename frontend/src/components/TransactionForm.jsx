@@ -62,6 +62,7 @@ const TransactionForm = ({ isOpen, onClose, onSave, editingTransaction = null, s
       id: editingTransaction?.id || Date.now().toString(),
       type: transactionType,
       amount: parseFloat(amount),
+      currency: currency,
       category: showCustomCategory ? customCategory.toLowerCase().replace(/\s+/g, '-') : category,
       description,
       date: format(date, 'yyyy-MM-dd')
