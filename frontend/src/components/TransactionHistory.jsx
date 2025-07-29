@@ -317,6 +317,7 @@ const TransactionHistory = ({ transactions = [], selectedPeriod = 'monthly', sel
           onClose={() => setEditingTransaction(null)}
           onSave={handleSaveEdit}
           editingTransaction={editingTransaction}
+          selectedCurrency={selectedCurrency}
         />
       )}
     </Card>
