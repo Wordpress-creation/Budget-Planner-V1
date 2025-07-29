@@ -340,7 +340,7 @@ const Dashboard = () => {
             value={summaryData.totalIncome}
             icon={TrendingUp}
             trend="up"
-            trendValue="+12% from last month"
+            trendValue={summaryData.incomeTrend}
             color="bg-gradient-to-r from-green-50 to-emerald-50"
           />
           <StatCard
@@ -348,7 +348,7 @@ const Dashboard = () => {
             value={summaryData.totalExpense}
             icon={TrendingDown}
             trend="down"
-            trendValue="-5% from last month"
+            trendValue={summaryData.expenseTrend}
             color="bg-gradient-to-r from-red-50 to-pink-50"
           />
           <StatCard
