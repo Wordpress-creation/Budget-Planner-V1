@@ -156,9 +156,44 @@ const Dashboard = () => {
     }
   }, [transactions, selectedPeriod]);
 
-  // Category pie chart data
+  // Category pie chart data based on selected period
   const expensePieData = useMemo(() => {
-    const categoryTotals = getCategoryTotals('expense');
+    const now = new Date();
+    let startDate, endDate;
+    
+    switch (selectedPeriod) {
+      case 'weekly':
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay() + 1);
+        startDate = startOfWeek.toISOString().slice(0, 10);
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        endDate = endOfWeek.toISOString().slice(0, 10);
+        break;
+      case 'yearly':
+        startDate = `${now.getFullYear()}-01-01`;
+        endDate = `${now.getFullYear()}-12-31`;
+        break;
+      case 'monthly':
+      default:
+        startDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+        endDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${lastDay}`;
+        break;
+    }
+
+    const periodTransactions = transactions.filter(t => 
+      t.date >= startDate && t.date <= endDate && t.type === 'expense'
+    );
+    
+    const categoryTotals = {};
+    periodTransactions.forEach(transaction => {
+      if (!categoryTotals[transaction.category]) {
+        categoryTotals[transaction.category] = 0;
+      }
+      categoryTotals[transaction.category] += transaction.amount;
+    });
+    
     return Object.entries(categoryTotals)
       .map(([categoryId, total]) => {
         const category = getCategoryById(categoryId, 'expense');
@@ -170,7 +205,7 @@ const Dashboard = () => {
       })
       .sort((a, b) => b.value - a.value)
       .slice(0, 8); // Top 8 categories
-  }, []);
+  }, [transactions, selectedPeriod]);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
