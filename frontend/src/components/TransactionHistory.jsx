@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { mockCategories, getCategoryById } from '../mockData';
+import { convertCurrency, formatCurrency } from '../services/currencyService';
 import { 
   Search, 
   Filter, 
