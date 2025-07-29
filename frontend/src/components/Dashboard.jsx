@@ -526,6 +526,7 @@ const Dashboard = () => {
           isOpen={showAddTransaction}
           onClose={() => setShowAddTransaction(false)}
           onSave={handleAddTransaction}
+          selectedCurrency={selectedCurrency}
         />
       )}
     </div>
