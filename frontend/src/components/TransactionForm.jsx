@@ -21,7 +21,7 @@ import {
 import { format } from 'date-fns';
 import { useToast } from '../hooks/use-toast';
 
-const TransactionForm = ({ isOpen, onClose, editingTransaction = null }) => {
+const TransactionForm = ({ isOpen, onClose, onSave, editingTransaction = null }) => {
   const [transactionType, setTransactionType] = useState(editingTransaction?.type || 'expense');
   const [amount, setAmount] = useState(editingTransaction?.amount?.toString() || '');
   const [category, setCategory] = useState(editingTransaction?.category || '');
